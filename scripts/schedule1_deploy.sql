@@ -158,6 +158,7 @@ while (sources.next()) {
 	if (groupByCompitable) {
 		var flagIndexLast = patternColumns.length - 1,
 			patternSegment = groupByPattern;
+		var dataPattern = patternFlexible ? 'BITOR(' + groupByColumns[0] + ',' + groupByPattern + ')' : groupByPattern;
 		var selectList = groupByColumns[0] === "DATA_PATTERN" ? (patternFlexible ? 'BITOR(' + groupByColumns[0] + ',' + groupByPattern + ')' : groupByPattern) + ' ' : '',
 			dimensionList = '',
 			groupByList = '',
@@ -180,7 +181,7 @@ while (sources.next()) {
             + `  FROM ( \n`
 			+ `    SELECT ` + dimensionList + `,` + aggregateFunctions.map((x, i) => { return x.replace('?', measureColumns[i]) + ' ' + measureColumns[i] }) + ` \n`
 			+ `    FROM ( \n`
-			+ `      SELECT ` + dimensionList + `,` + measureColumns + ` \n`
+			+ `      SELECT ` + dataPattern + ` ` + dimensionList + `,` + measureColumns + ` \n`
 			+ `      FROM ` + transformation + ` \n`
 			+ `      WHERE ` + batchControlColumn + ` >= :1 AND ` + batchControlColumn + ` < ` + batchControlNext + ` \n`
 			+ `      ) \n`
@@ -189,7 +190,7 @@ while (sources.next()) {
             + `  FULL JOIN ( \n`
 			+ `    SELECT ` + dimensionList + `,` + aggregateFunctions.map((x, i) => { return x.replace('?', measureColumns[i]) + ' ' + measureColumns[i] }) + ` \n`
 			+ `    FROM ( \n`
-			+ `      SELECT ` + dimensionList + `,` + measureColumns + ` \n`
+			+ `      SELECT ` + dataPattern + ` ` + dimensionList + `,` + measureColumns + ` \n`
 			+ `      FROM ` + bucketTable + ` \n`
 			+ `      WHERE ` + batchControlColumn + ` >= :1 AND ` + batchControlColumn + ` < ` + batchControlNext + ` \n`
 			+ `      ) \n`

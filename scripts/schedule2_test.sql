@@ -93,7 +93,8 @@ USING (
   		"DATA_A3"
         ]'
   	-- group-by columns of target data and which source column is the match
-  	,'["DATA_DT:DATA_DATE",
+  	,'["DATA_PT:DATA_PATTERN",
+  		"DATA_DT:DATA_DATE",
   		"DATA_I1:DATA_I1",
   		"DATA_I2:DATA_I2",
   		"DATA_I3:DATA_I3",
@@ -102,7 +103,7 @@ USING (
   		"DATA_A3:DATA_A3"
          ]'
   	-- indicators of which group-by column are needed in target table
-  	,'[0,0,1,0,0,1,1,1,1,1,1]'
+  	,'[1,0,1,0,0,1,1,1,1,1,1]'
   	-- aggregate columns of target data and which aggregating column is the match
   	,'["VSUM_I1:VALUE_I1","VCNT_I2:VALUE_I2","VSUM_D1:VALUE_D1","VAVG_D2:VALUE_D2"]'
   	-- what aggregation function will be used for every aggregation column
