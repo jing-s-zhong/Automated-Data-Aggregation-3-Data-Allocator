@@ -1,2 +1,2 @@
-# Data-Process-Architecture-3-Data-Allocator
+# Data Process Architecture (3) Data Allocator
 These is a very common case like following described. We have a serires of logged business events from our business systems and we also get a serires of daily or hourly aggregated reporting data (like revenue or event counts) from the business partnership. For data science purpose, we need to estimate how much the data value (such revenue) should be allowcated to every individual event. The "Data Allocator" is the solution to solve this kind of issue.
